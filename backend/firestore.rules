@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Quote requests are written only by the submitQuote Cloud
+    // Function (admin SDK bypasses rules). Nothing client-side
+    // may read or write them — they contain customer contact details.
+    match /quoteRequests/{reference} {
+      allow read, write: if false;
+    }
+
+    // Rate limit counters — server-only.
+    match /rateLimits/{window} {
+      allow read, write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
