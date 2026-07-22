@@ -36,12 +36,13 @@
   .btn-outline{color:#eafbe4;background:transparent;border:1.6px solid rgba(160,205,120,.85);box-shadow:none;transition:background .16s ease,border-color .16s ease,color .16s ease}
   .btn-outline:hover{color:#fff;background:rgba(143,185,106,.16);border-color:rgba(184,224,144,1)}
 
-  /* hero product cards (frosted row) */
-  .hero-cards{position:absolute;left:0;right:0;bottom:6%;z-index:15;display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:clamp(10px,1vw,16px);padding:0 clamp(18px,4vw,54px);animation:ccUp 1s ease both}
-  .hero-card{flex:1 1 0;min-width:150px;max-width:212px;padding:16px 18px;border-radius:16px;border:1px solid rgba(233,246,224,.28);background:linear-gradient(160deg,rgba(34,52,36,.5),rgba(13,26,18,.5));backdrop-filter:blur(9px);box-shadow:0 12px 30px rgba(0,0,0,.4);text-align:left;color:#fff;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
-  .hero-card:hover{transform:translateY(-4px);border-color:rgba(184,224,144,.9);box-shadow:0 16px 38px rgba(0,0,0,.5),0 0 18px rgba(143,185,106,.35)}
-  .hero-card-name{display:block;font:700 clamp(12px,1vw,15px)/1.1 'Bricolage Grotesque',sans-serif;text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px}
-  .hero-card-short{display:block;font-size:clamp(10px,.82vw,12.5px);line-height:1.4;color:rgba(244,236,216,.82)}
+  /* hero product cards (scattered around conveyor, with thumbnail) */
+  .hero-cards{position:absolute;inset:0;z-index:14;pointer-events:none}
+  .hero-card{position:absolute;transform:translate(-50%,-50%);width:clamp(184px,15.5vw,236px);display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;border:1px solid rgba(233,246,224,.3);background:linear-gradient(160deg,rgba(34,52,36,.62),rgba(13,26,18,.6));backdrop-filter:blur(9px);box-shadow:0 12px 30px rgba(0,0,0,.45);text-align:left;color:#fff;cursor:pointer;pointer-events:auto;animation:ccFade .7s ease both;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+  .hero-card:hover{border-color:rgba(184,224,144,.95);box-shadow:0 16px 40px rgba(0,0,0,.55),0 0 20px rgba(143,185,106,.4);transform:translate(-50%,-50%) scale(1.045);z-index:30}
+  .hero-card-thumb{flex:none;width:48px;height:48px;border-radius:10px;border:1px solid rgba(233,246,224,.4);background:#0c1712;background-size:cover;background-position:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+  .hero-card-name{display:block;font:700 clamp(12px,.95vw,15px)/1.1 'Bricolage Grotesque',sans-serif;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+  .hero-card-short{display:block;font-size:clamp(9.5px,.78vw,12px);line-height:1.35;color:rgba(244,236,216,.85)}
 
   /* product cards */
   .card{display:flex;flex-direction:column;overflow:hidden;border-radius:20px;border:1px solid rgba(217,178,95,.2);background:linear-gradient(180deg,rgba(22,40,32,.62),rgba(11,22,17,.72));transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
@@ -296,17 +297,17 @@
 (function(){
   "use strict";
   var products = [
-    { id:'wood-chip', name:'Wood chip', tag:'Boiler & landscape', short:'Boiler feed & landscaping', uses:'Boiler feed, bedding, landscaping', density:'0.32', img:'assets/p-microchip.jpg', pos:[20,44],
+    { id:'wood-chip', name:'Wood chip', tag:'Boiler & landscape', short:'Boiler feed & landscaping', uses:'Boiler feed, bedding, landscaping', density:'0.32', img:'assets/p-microchip.jpg', pos:[26,74],
       desc:'Screened plantation pine chip with clean, consistent sizing — the workhorse grade for boiler feed, landscaping and industrial bedding.' },
-    { id:'microchip', name:'Microchip', tag:'High surface area', short:'High-surface-area combustion', uses:'Fast combustion, horticulture', density:'0.30', img:'assets/p-woodchip.jpg', pos:[19,66],
+    { id:'microchip', name:'Microchip', tag:'High surface area', short:'High-surface-area combustion', uses:'Fast combustion, horticulture', density:'0.30', img:'assets/p-woodchip.jpg', pos:[24,53],
       desc:'Finely processed chip for fast, high-surface-area combustion and premium horticultural and mushroom-substrate blends.' },
-    { id:'mulch', name:'Forest mulch', tag:'Civil & revegetation', short:'Erosion control & revegetation', uses:'Erosion control, revegetation', density:'0.28', img:'assets/p-mulch.jpg', pos:[80,40],
+    { id:'mulch', name:'Forest mulch', tag:'Civil & revegetation', short:'Erosion control & revegetation', uses:'Erosion control, revegetation', density:'0.28', img:'assets/p-mulch.jpg', pos:[62,44],
       desc:'Coarse forest-floor mulch for large-scale erosion control, revegetation and civil works — holds moisture, suppresses weeds.' },
-    { id:'furnace', name:'Furnace biomass', tag:'Industrial fuel', short:'Consistent industrial burn', uses:'Industrial furnaces & kilns', density:'0.35', img:'assets/p-furnace.jpg', pos:[81,58],
+    { id:'furnace', name:'Furnace biomass', tag:'Industrial fuel', short:'Consistent industrial burn', uses:'Industrial furnaces & kilns', density:'0.35', img:'assets/p-furnace.jpg', pos:[72,56],
       desc:'Graded hog fuel engineered for a consistent, high-energy burn in industrial furnaces, kilns and process heat systems.' },
-    { id:'logs', name:'Logs', tag:'Feedstock & firewood', short:'Feedstock & firewood', uses:'Feedstock, processing, firewood', density:'0.65', img:'assets/p-logs.jpg', pos:[22,85],
+    { id:'logs', name:'Logs', tag:'Feedstock & firewood', short:'Feedstock & firewood', uses:'Feedstock, processing, firewood', density:'0.65', img:'assets/p-logs.jpg', pos:[70,68],
       desc:'Plantation-sourced logs and billets — run-of-pile feedstock, processing timber and seasoned firewood by the load.' },
-    { id:'biochar', name:'Biochar', tag:'>75% fixed carbon', short:'Durable soil carbon', uses:'Soil amendment, carbon storage', density:'0.22', img:'assets/p-biochar.jpg', pos:[80,80],
+    { id:'biochar', name:'Biochar', tag:'>75% fixed carbon', short:'Durable soil carbon', uses:'Soil amendment, carbon storage', density:'0.22', img:'assets/p-biochar.jpg', pos:[74,81],
       desc:'Pyrolysed residue with over 75% fixed carbon — a soil amendment and durable, long-term carbon store for regenerative projects.' }
   ];
 
@@ -341,13 +342,19 @@
   var checkIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="flex:none;opacity:.85"><path d="M5 12h14M13 6l6 6-6 6" stroke="#e6c877" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var tickIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="#8fb96a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  /* hero product cards (frosted row) */
+  /* hero product cards (scattered around conveyor, with thumbnail) */
   var heroTiles = byId('heroTiles');
-  products.forEach(function(p){
+  products.forEach(function(p, i){
     var btn = el('<button type="button" class="hero-card" aria-label="Explore ' + esc(p.name) + '"></button>');
+    btn.style.left = p.pos[0] + '%';
+    btn.style.top = p.pos[1] + '%';
+    btn.style.animationDelay = (0.15 + i * 0.08).toFixed(2) + 's';
     btn.innerHTML =
-      '<span class="hero-card-name">' + esc(p.name) + '</span>' +
-      '<span class="hero-card-short">' + esc(p.short) + '</span>';
+      '<span class="hero-card-thumb" style="background-image:url(\'' + p.img + '\')"></span>' +
+      '<span style="min-width:0">' +
+        '<span class="hero-card-name">' + esc(p.name) + '</span>' +
+        '<span class="hero-card-short">' + esc(p.short) + '</span>' +
+      '</span>';
     btn.addEventListener('click', function(){ openModal(p.id); });
     heroTiles.appendChild(btn);
   });
